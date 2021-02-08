@@ -31,6 +31,12 @@ class EditViewController: UIViewController {
         lblWay.text = textWayValue
         txtMessage.text = textMessage
         switchOfLamp.isOn = isOn
+        if isZoom{
+            btnZoomValue.setTitle("축소", for: .normal)
+        }
+        else{
+            btnZoomValue.setTitle("확대", for: .normal)
+        }
     }
     
     @IBAction func btnDone(_ sender: UIButton) {
@@ -43,17 +49,16 @@ class EditViewController: UIViewController {
     
     @IBAction func btnZoom(_ sender: UIButton) {
         if isZoom == false{
-            btnZoomValue.setTitle("확대", for: .normal)
+            btnZoomValue.setTitle("축소", for: .normal)
             isZoom = true
         }
         else{
-            btnZoomValue.setTitle("축소", for: .normal)
+            btnZoomValue.setTitle("확대", for: .normal)
             isZoom = false 
         }
-    
-        //if (delegate != nil){
-            //delegate?.didImageZoomDone(self, isZoom: isZoom)
-        //}
+        if (delegate != nil){
+            delegate?.didImageZoomDone(self, isZoom: isZoom)
+        }
     }
     
     @IBAction func switchLampOnOff(_ sender: UISwitch) {
@@ -63,6 +68,7 @@ class EditViewController: UIViewController {
         else{
             isOn = false
         }
+        
     }
     
     /*

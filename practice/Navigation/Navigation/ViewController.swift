@@ -14,6 +14,11 @@ class ViewController: UIViewController, EditDelegate {
     @IBOutlet var imageViewOfLamp: UIImageView!
     
     var isOn = true
+    var isZoom = false
+    
+    let scale: CGFloat = 2.0
+    var newWidth: CGFloat?
+    var newHeight: CGFloat?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +39,7 @@ class ViewController: UIViewController, EditDelegate {
         editViewController.textMessage = txtMessage.text!
         editViewController.isOn = isOn
         editViewController.delegate = self
+        editViewController.isZoom = isZoom
         
     }
     
@@ -51,7 +57,17 @@ class ViewController: UIViewController, EditDelegate {
         }
     }
     func didImageZoomDone(_ controller: EditViewController, isZoom: Bool) {
-        imageViewOfLamp.image = LampOff
+        if isZoom{
+            newWidth = imageViewOfLamp.frame.width*scale
+            newHeight = imageViewOfLamp.frame.height*scale
+            self.isZoom = isZoom
+        }
+        else{
+            newWidth = imageViewOfLamp.frame.width/scale
+            newHeight = imageViewOfLamp.frame.height/scale
+            self.isZoom = isZoom
+        }
+        imageViewOfLamp.frame.size = CGSize(width: newWidth!, height: newHeight!)
     }
 
 }
